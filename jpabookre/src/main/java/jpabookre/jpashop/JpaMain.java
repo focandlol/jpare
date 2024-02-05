@@ -1,13 +1,11 @@
-package hellojpa;
+package jpabookre.jpashop;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 public class JpaMain {
-
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
 
@@ -17,18 +15,7 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = new Member();
-            member.setUsername("q");
-            Member member2 = new Member();
-            member.setUsername("q1");
-            Member member3 = new Member();
-            member.setUsername("q2");
-            Member member4 = new Member();
-            member.setUsername("q3");
-            em.persist(member);
-            em.persist(member2);
-            em.persist(member3);
-            em.persist(member4);
+
             tx.commit();
 
         } catch(Exception e){
@@ -39,4 +26,5 @@ public class JpaMain {
 
         emf.close();
     }
+
 }
