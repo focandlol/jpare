@@ -6,22 +6,28 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq",
-initialValue = 1,allocationSize = 2)
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "member_seq_generator")
+    @GeneratedValue
+    @Column(name = "member_id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "username")
     private String username;
 
-    private Integer age;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "locker_idE")
+    private Locker locker;
 
 
     public Member() {
     }
+
 
     public Long getId() {
         return id;
@@ -39,11 +45,24 @@ public class Member {
         this.username = username;
     }
 
-    public Integer getAge() {
-        return age;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public Locker getLocker() {
+        return locker;
+    }
+
+    public void setLocker(Locker locker) {
+        this.locker = locker;
     }
 }
