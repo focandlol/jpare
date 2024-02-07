@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Member {
+public class Member extends BaseEntity{
 
     @Id
     @GeneratedValue
@@ -20,9 +20,9 @@ public class Member {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "locker_idE")
-    private Locker locker;
+    //@OneToOne(fetch = FetchType.LAZY)
+   // @JoinColumn(name = "locker_idE")
+    //private Locker locker;
 
 
     public Member() {
@@ -58,11 +58,5 @@ public class Member {
         this.team = team;
     }
 
-    public Locker getLocker() {
-        return locker;
-    }
 
-    public void setLocker(Locker locker) {
-        this.locker = locker;
-    }
 }

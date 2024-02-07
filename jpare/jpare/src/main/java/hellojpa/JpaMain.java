@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JpaMain {
@@ -17,26 +18,31 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
 
-            Member member = new Member();
-            member.setUsername("member1");
-            member.changeTeam(team);
-            em.persist(member);
+            Movie movie = new Movie();
+            movie.setPrice(10000);
+            movie.setName("sdad");
+            movie.setDirector("ssss");
+            movie.setActor("asad");
+
+            em.persist(movie);
 
             em.flush();
             em.clear();
 
-            Team team1 = em.find(Team.class, team.getId());
-            List<Member> members = team1.getMembers();
-           Member member1 = members.get(0);
-            System.out.println("member1sd = " + member1.getTeam().getClass());
-            System.out.println("member1 = " + member1.getLocker().getClass());
+            Item item = em.find(Item.class, movie.getId());
 
-            //Member member1 = em.find(Member.class, member.getId());
-            //System.out.println("member1 = " + member1.getTeam().getClass());
+
+            if(item instanceof Book){
+                System.out.println("영화오낭혼밍ㄻ");
+            }
+            if(item instanceof Movie){
+                System.out.println("item은 영화입니다 = ");
+                Movie item1 = (Movie) item;
+                item1.getActor();
+            }
+
+
             tx.commit();
 
         } catch(Exception e){
