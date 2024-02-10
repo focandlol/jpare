@@ -36,13 +36,17 @@ public class Main {
             em.persist(member3);
 
             em.flush();
-            em.clear();
 
-           String query = "select 'sdsd' from Member m join m.team t";
-            List<String> singleResult = em.createQuery(query, String.class).getResultList();
-            for (String s : singleResult) {
-                System.out.println("s = " + s);
-            }
+            member3.setUsername("kkkkkk");
+
+
+
+            System.out.println("member3 = " + member3.getUsername());
+
+
+            //em.clear();
+
+
 
 
             tx.commit();
