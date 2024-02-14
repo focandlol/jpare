@@ -27,8 +27,20 @@ public abstract class Item {
 
     private int stockQuantity;
 
+    @Column(insertable = false, updatable = false)
+    private String dtype;
+
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
+
+    public Item() {
+    }
+
+    public Item(String name, int price, int stockQuantity) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
 
     public void addStock(int quantity){
         this.stockQuantity += quantity;

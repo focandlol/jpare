@@ -8,6 +8,7 @@ import jpabookre.jpashopre.domain.item.Item;
 import jpabookre.jpashopre.repository.ItemRepository;
 import jpabookre.jpashopre.repository.MemberRepository;
 import jpabookre.jpashopre.repository.OrderRepository;
+import jpabookre.jpashopre.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,10 @@ public class OrderService {
     public void cancelOrder(Long orderId){
         Order order = orderRepository.findOne(orderId);
         order.cancel();
+    }
+
+    public List<Order> findOrders(OrderSearch orderSearch){
+        return orderRepository.findAll(orderSearch);
     }
 
 
