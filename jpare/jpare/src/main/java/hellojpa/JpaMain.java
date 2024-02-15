@@ -5,6 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,16 +44,42 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = new Member();
-            member.setUsername("kkm");
-            em.persist(member);
+            Movie movie = new Movie();
+            movie.setName("qwe");
+            movie.setPrice(1000);
+            movie.setActor("asd");
+            movie.setDirector("aaaa");
+            em.persist(movie);
+
+            Book book = new Book();
+            book.setName("sss");
+            book.setPrice(100000);
+            book.setAuthor("sss");
+            book.setIsbn("ssss");
+            em.persist(book);
 
             em.flush();
             em.clear();
 
-            Member result = em.createQuery("select m from Member m where m.username = 'kkm'", Member.class).getSingleResult();
-            System.out.println("result = " + result);
-            System.out.println("result = " + result.getAddressHistory());
+            List<Object> aa = new ArrayList<>();
+            List<Movie> movi = new ArrayList<>();
+            //Item item = em.find(Item.class, movie.getId());
+            List<Item> items = em.createQuery("select i from Item i", Item.class).getResultList();
+            for (Item item : items) {
+                //System.out.println("item = " + item);
+                if(item.getDtype().equals("Movie")){
+                    Movie item1 = (Movie) item;
+                    aa.add(item1);
+                    movi.add(item1);
+                }
+                if(item.getDtype().equals("Book")){
+                    Book item1 = (Book) item;
+                    aa.add(item1);
+                }
+            }
+
+
+
 
             tx.commit();
 

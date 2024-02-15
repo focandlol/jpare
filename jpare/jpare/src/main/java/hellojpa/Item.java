@@ -50,4 +50,14 @@ public abstract class Item {
     public void setDtype(String dtype) {
         this.dtype = dtype;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", dtype='" + dtype + '\'' +
+                '}';
+    }
 }
