@@ -35,6 +35,17 @@ public class Order extends BaseEntity{
         orderItem.setOrder(this);
     }
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", member=" + member +
+                ", delivery=" + delivery +
+                ", orderDate=" + orderDate +
+                ", orderStatus=" + orderStatus +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }
