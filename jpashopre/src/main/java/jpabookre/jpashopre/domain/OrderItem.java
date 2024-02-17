@@ -1,5 +1,6 @@
 package jpabookre.jpashopre.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jpabookre.jpashopre.domain.item.Item;
 import lombok.Getter;
@@ -18,6 +19,7 @@ public class OrderItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")

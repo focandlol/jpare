@@ -3,7 +3,7 @@ package jpabookre.jpashopre.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jpabookre.jpashopre.domain.Order;
-import jpabookre.jpashopre.domain.item.Item;
+import jpabookre.jpashopre.repository.order.simplequery.OrderSimpleQueryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -59,4 +59,12 @@ public class OrderRepository {
         }
         return query.getResultList();
     }
+
+    public List<Order> findAllWithMemberDelivery() {
+
+        return em.createQuery("select o from Order o join fetch o.member join fetch o.delivery d",
+                Order.class).getResultList();
+    }
+
+
 }
