@@ -74,6 +74,7 @@ public class Order {
         }
     }
 
+    @JsonIgnore
     public int getTotalPrice(){
         int totalPrice = 0;
         for (OrderItem orderItem : orderItems) {

@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jpabookre.jpashopre.domain.*;
 import jpabookre.jpashopre.domain.item.Book;
+import jpabookre.jpashopre.domain.item.Movie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,10 +43,15 @@ public class InitDb {
             em.persist(member);
 
             Book book1 = createBook("JPA1 BOOK", 10000, 100);
+            book1.setAuthor("kkm1");
             em.persist(book1);
 
             Book book2 = createBook("JPA2 BOOK", 20000, 100);
+            book2.setAuthor("kkm2");
             em.persist(book2);
+
+            Movie movie = new Movie("asd", 1000, 3, "kkm", "kkm");
+            em.persist(movie);
 
             OrderItem orderItem1 = OrderItem.createOrderItem(book1, 10000, 1);
             OrderItem orderItem2 = OrderItem.createOrderItem(book2, 20000, 2);

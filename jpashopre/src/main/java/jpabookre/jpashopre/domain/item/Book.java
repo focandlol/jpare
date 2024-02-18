@@ -23,4 +23,12 @@ public class Book extends Item{
         this.author = author;
         this.isbn = isbn;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "author='" + author + '\'' +
+                ", isbn='" + isbn + '\'' +
+                '}';
+    }
 }
