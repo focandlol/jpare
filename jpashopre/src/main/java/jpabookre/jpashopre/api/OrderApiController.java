@@ -8,6 +8,8 @@ import jpabookre.jpashopre.domain.item.Book;
 import jpabookre.jpashopre.domain.item.Item;
 import jpabookre.jpashopre.repository.OrderRepository;
 import jpabookre.jpashopre.repository.OrderSearch;
+import jpabookre.jpashopre.repository.order.query.OrderQueryDto;
+import jpabookre.jpashopre.repository.order.query.OrderQueryRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1(){
@@ -56,6 +59,16 @@ public class OrderApiController {
     @RequestParam(value = "limit",defaultValue = "100") int limit){
         List<Order> orders = orderRepository.findAllWithMemberDelivery(offset,limit);
         return orders.stream().map(o -> new OrderDto(o)).collect(Collectors.toList());
+    }
+
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> ordersV4(){
+        return orderQueryRepository.findOrderQueryDtos();
+    }
+
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> ordersV5(){
+        return orderQueryRepository.findAllByDto_optimization();
     }
 
     @Getter
