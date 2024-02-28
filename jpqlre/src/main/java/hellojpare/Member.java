@@ -22,6 +22,7 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private MemberType type;
+
     public void changeTeam(Team team){
         this.team = team;
         team.getMembers().add(this);

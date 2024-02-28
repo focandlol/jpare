@@ -77,6 +77,9 @@ public class JpaMain {
                     aa.add(item1);
                 }
             }
+            for (Object o : aa) {
+                System.out.println("o = " + o);
+            }
 
 
 

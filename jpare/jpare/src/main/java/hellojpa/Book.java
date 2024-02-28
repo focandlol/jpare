@@ -30,6 +30,7 @@ public class Book extends Item{
         return "Book{" +
                 "author='" + author + '\'' +
                 ", isbn='" + isbn + '\'' +
+                ", name='" + super.getName() + '\'' +
                 '}';
     }
 }

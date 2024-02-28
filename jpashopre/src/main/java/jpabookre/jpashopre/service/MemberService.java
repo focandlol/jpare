@@ -18,8 +18,10 @@ public class MemberService {
 
     @Transactional
     public Long join(Member member){
+        System.out.println("member1 = " + member);
         validateDuplicateMember(member);
         memberRepository.save(member);
+        System.out.println("member2 = " + member);
         return member.getId();
     }
 

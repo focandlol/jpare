@@ -15,7 +15,10 @@ public class MemberRepository {
     private final EntityManager em;
 
     public void save(Member member){
+
         em.persist(member);
+        Long id = member.getId();
+        System.out.println("id = " + id);
     }
 
     public Member findOne(Long id){
