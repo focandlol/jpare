@@ -5,13 +5,11 @@ import jakarta.persistence.PersistenceContext;
 import jpare.datajpare.domain.Member;
 import jpare.datajpare.domain.Team;
 import jpare.datajpare.dto.MemberDto;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
@@ -343,6 +341,92 @@ class MemberRepositoryTest {
     @Test
     public void callCustom(){
         List<Member> result = memberRepository.findMemberCustom();
+    }
+
+    @Test
+    public void queryByExample(){
+        Team teamA = new Team("teamA");
+        em.persist(teamA);
+
+        Member m1 = new Member("m1", 0, teamA);
+        Member m2 = new Member("m2",0,teamA);
+        em.persist(m1);
+        em.persist(m2);
+
+        em.flush();
+        em.clear();
+
+        Member member = new Member("m1");
+        Team team = new Team("teamA");
+        member.setTeam(team);
+
+        ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase("age");
+
+        Example<Member> example = Example.of(member, matcher);
+
+        List<Member> result = memberRepository.findAll(example);
+
+        assertThat(result.get(0).getUsername()).isEqualTo("m1");
+
+    }
+
+    @Test
+    public void projections(){
+        Team teamA = new Team("teamA");
+        em.persist(teamA);
+
+        Member m1 = new Member("m1", 0, teamA);
+        Member m2 = new Member("m2",0,teamA);
+        em.persist(m1);
+        em.persist(m2);
+
+        em.flush();
+        em.clear();
+
+        List<UsernameOnly> result = memberRepository.findProjectionsByUsername("m1");
+        for (UsernameOnly usernameOnly : result) {
+            System.out.println("usernameOnly = " + usernameOnly);
+        }
+    }
+
+    @Test
+    public void Classprojections(){
+        Team teamA = new Team("teamA");
+        em.persist(teamA);
+
+        Member m1 = new Member("m1", 0, teamA);
+        Member m2 = new Member("m2",0,teamA);
+        em.persist(m1);
+        em.persist(m2);
+
+        em.flush();
+        em.clear();
+
+        List<UsernameOnlyDto> result = memberRepository.findProjectionsClassByUsername("m1");
+        for (UsernameOnlyDto usernameOnly : result) {
+            System.out.println("usernameOnly = " + usernameOnly.getUsername());
+        }
+    }
+
+
+    @Test
+    public void nativeQuery(){
+        Team teamA = new Team("teamA");
+        em.persist(teamA);
+
+        Member m1 = new Member("m1", 0, teamA);
+        Member m2 = new Member("m2",0,teamA);
+        em.persist(m1);
+        em.persist(m2);
+
+        em.flush();
+        em.clear();
+
+        Page<MemberProjection> result = memberRepository.findByNativeProjection(PageRequest.of(0, 10));
+        for (MemberProjection memberProjection : result) {
+            System.out.println("memberProjection = " + memberProjection.getUsername());
+            System.out.println("memberProjection = " + memberProjection.getTeamName());
+        }
     }
 
 
