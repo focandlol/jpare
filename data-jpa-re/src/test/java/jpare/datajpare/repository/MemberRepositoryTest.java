@@ -234,6 +234,7 @@ class MemberRepositoryTest {
         PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "username"));
 
         Page<Member> page = memberRepository.findQueryByAge(age, pageRequest);
+        int number = page.getNumber();
         /**
          * Page<Member> -> Page<MemberDto></>
          * member -> memberDto 변환
@@ -338,6 +339,13 @@ class MemberRepositoryTest {
 
         em.flush();
     }
+
+    @Test
+    public void callCustom(){
+        List<Member> result = memberRepository.findMemberCustom();
+    }
+
+
 
 
 }
