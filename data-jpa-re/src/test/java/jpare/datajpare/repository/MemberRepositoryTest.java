@@ -418,10 +418,8 @@ class MemberRepositoryTest {
         Member m2 = new Member("m2",0,teamA);
         em.persist(m1);
         em.persist(m2);
-
         em.flush();
         em.clear();
-
         Page<MemberProjection> result = memberRepository.findByNativeProjection(PageRequest.of(0, 10));
         for (MemberProjection memberProjection : result) {
             System.out.println("memberProjection = " + memberProjection.getUsername());
