@@ -29,6 +29,7 @@ import studyre.querydslre.entity.Team;
 
 import java.util.List;
 
+import static com.querydsl.jpa.JPAExpressions.avg;
 import static org.assertj.core.api.Assertions.*;
 import static studyre.querydslre.entity.QMember.*;
 import static studyre.querydslre.entity.QTeam.*;
@@ -194,6 +195,17 @@ public class QuerydslBasicTest {
                 .from(member)
                 .join(member.team,team)
                 .groupBy(team.name)
+                .fetch();
+
+        System.out.println("fetch = " + fetch);
+
+    }
+
+    @Test
+    public void group2(){
+        List<Double> fetch = queryFactory
+                .select(member.age.avg())
+                .from(member)
                 .fetch();
 
         System.out.println("fetch = " + fetch);
