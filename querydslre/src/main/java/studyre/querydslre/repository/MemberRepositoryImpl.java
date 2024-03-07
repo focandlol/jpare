@@ -101,18 +101,19 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        JPAQuery<Member> countQuery = queryFactory
+        long total = queryFactory
                 .select(member)
                 .from(member)
                 .leftJoin(member.team, team)
                 .where(usernameEq(condition.getUsername()),
                         teamNameEq(condition.getTeamName()),
                         ageGoe(condition.getAgeGoe()),
-                        ageLoe(condition.getAgeLoe()));
+                        ageLoe(condition.getAgeLoe()))
+                .fetch().size();
 
 
-        return PageableExecutionUtils.getPage(content,pageable,() -> countQuery.fetch().size());
-       // return new PageImpl<>(content, pageable, total);
+        //return PageableExecutionUtils.getPage(content,pageable,() -> countQuery.fetch().size());
+        return new PageImpl<>(content, pageable, total);
     }
 
     private BooleanExpression usernameEq(String username) {
