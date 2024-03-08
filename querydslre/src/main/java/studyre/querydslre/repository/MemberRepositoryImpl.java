@@ -72,6 +72,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
+                .orderBy()
                 .fetchResults();
 
 
