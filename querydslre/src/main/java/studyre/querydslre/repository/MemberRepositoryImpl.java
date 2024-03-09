@@ -20,9 +20,11 @@ import studyre.querydslre.dto.MemberTeamDto;
 import studyre.querydslre.dto.QMemberTeamDto;
 import studyre.querydslre.entity.Member;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.querydsl.core.types.ExpressionUtils.count;
+import static com.querydsl.core.types.ExpressionUtils.in;
 import static studyre.querydslre.entity.QMember.member;
 import static studyre.querydslre.entity.QTeam.team;
 
@@ -43,6 +45,7 @@ public class MemberRepositoryImpl extends QuerydslRepositorySupport implements M
     @Override
     public List<MemberTeamDto> search(MemberSearchCond cond){
         OrderSpecifier<Long> desc = member.id.desc();
+        List<Long> a = new ArrayList<>();
         from(member)
                 .leftJoin(member.team,team)
                 .where(usernameEq(cond.getUsername()),
