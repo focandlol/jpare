@@ -51,6 +51,7 @@ public class JpaMain {
             movie.setDirector("aaaa");
             em.persist(movie);
 
+
             Book book = new Book();
             book.setName("sss");
             book.setPrice(100000);
@@ -66,7 +67,8 @@ public class JpaMain {
             //Item item = em.find(Item.class, movie.getId());
             List<Item> items = em.createQuery("select i from Item i", Item.class).getResultList();
             for (Item item : items) {
-                //System.out.println("item = " + item);
+                System.out.println("item = " + item);
+                System.out.println("item = " + item.getClass());
                 if(item.getDtype().equals("Movie")){
                     Movie item1 = (Movie) item;
                     aa.add(item1);
