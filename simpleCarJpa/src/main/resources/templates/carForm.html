@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <title>Car</title>
+</head>
+<body>
+<h1>COMPANY FORM </h1>
+<form method="POST" th:action="@{/car}"
+      th:object="${carInputDto}">
+  <div class="form-group">
+    <label for="modelName">Model Name</label>
+    <input th:name="modelName"
+           id="modelName"
+           type="text"
+           class="form-control"
+           name="modelName"/>
+  </div>
+  <div class="form-group">
+    <label for="passengerCapacity">passengerCapacity </label>
+    <input th:name="passengerCapacity"
+           id="passengerCapacity"
+           type="text"
+           class="form-control"
+           name="passengerCapacity"/>
+  </div>
+
+  <div class="form-group">
+    <label for="companyId">Company</label>
+    <Select th:name="companyId">
+      <option th:each="company : ${companyList}"
+              th:value="${company.id}"
+              th:utext="${company.companyName}"></option>
+    </Select>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary btn-block">
+      REGISTER
+    </button>
+  </div>
+</form>
+</body>
+</html>
+

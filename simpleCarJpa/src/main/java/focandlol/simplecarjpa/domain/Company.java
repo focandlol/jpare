@@ -14,6 +14,11 @@ import java.util.Date;
 @AllArgsConstructor
 public class Company extends BaseEntity{
 
+    public Company(String companyName,String companyNation) {
+        this.companyNation = companyNation;
+        this.companyName = companyName;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

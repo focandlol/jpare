@@ -4,6 +4,9 @@ import focandlol.simplecarjpa.domain.Company;
 import focandlol.simplecarjpa.dto.CompanyInputDto;
 import focandlol.simplecarjpa.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,5 +28,14 @@ public class CompanyService {
 
     public List<Company> saveAll(List<Company> companies) {
         return companyRepository.saveAll(companies);
+    }
+
+    public Page<Company> getCompanyByPage(Pageable pageable) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        return companyRepository.findAll(PageRequest.of(page, 5, pageable.getSort()));
+    }
+
+    public List<Company> findAll() {
+        return companyRepository.findAll();
     }
 }
