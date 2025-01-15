@@ -1,6 +1,5 @@
 package focandlol.simplecarjpa.controller;
 
-import focandlol.simplecarjpa.domain.Company;
 import focandlol.simplecarjpa.dto.CompanyInputDto;
 import focandlol.simplecarjpa.repository.CompanyRepository;
 import focandlol.simplecarjpa.service.CompanyService;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,7 +28,7 @@ public class BasicController {
 
     @PostMapping("/save")
     public String saveCompany(Model model, CompanyInputDto companyInputDto){
-        companyService.save(companyInputDto);
+        companyService.saveCompanyInputDto(companyInputDto);
 
         return "index";
     }
