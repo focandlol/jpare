@@ -20,7 +20,7 @@ public class Car extends BaseEntity {
     @Column(name = "model_name")
     private String modelName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="company_id")
     private Company company;
 

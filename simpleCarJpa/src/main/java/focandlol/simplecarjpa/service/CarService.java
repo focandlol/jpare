@@ -30,6 +30,6 @@ public class CarService {
 
     public Page<Car> getCarByPage(Pageable pageable) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        return carRepository.findAll(PageRequest.of(page, 5, pageable.getSort()));
+        return carRepository.findAllFetch(PageRequest.of(page, 5, pageable.getSort()));
     }
 }
